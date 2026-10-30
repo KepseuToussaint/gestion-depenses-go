@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{.Title}} | Gestion des dépenses</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<header><div class="container nav">
+  <a class="brand" href="/expenses">Gestion des dépenses</a>
+  <nav><a href="/expenses">Dépenses</a><a href="/expenses/new">Ajouter</a><a href="/about">À propos</a></nav>
+</div></header>
+<main class="container">
+{{template "content" .}}
+</main>
+<footer><div class="container">Projet pédagogique réalisé avec Go, net/http et SQLite.</div></footer>
+</body>
+</html>

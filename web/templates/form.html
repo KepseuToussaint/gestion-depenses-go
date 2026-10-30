@@ -1,0 +1,20 @@
+{{define "content"}}
+<h1>{{.Title}}</h1>
+<form class="expense-form" method="POST" action="{{if .Expense.ID}}/expenses/{{.Expense.ID}}/update{{else}}/expenses{{end}}">
+  <label>Montant
+    <input type="number" name="amount" min="0.01" step="0.01" required value="{{if .Expense.ID}}{{printf "%.2f" .Expense.Amount}}{{end}}">
+  </label>
+  <label>Description
+    <input type="text" name="description" maxlength="250" required value="{{.Expense.Description}}">
+  </label>
+  <label>Date
+    <input type="date" name="date" required value="{{.Expense.Date}}">
+  </label>
+  <label>Catégorie
+    <select name="category_id" required><option value="">Choisir une catégorie</option>
+    {{range .Categories}}<option value="{{.ID}}" {{if eq $.Expense.CategoryID .ID}}selected{{end}}>{{.Name}}</option>{{end}}
+    </select>
+  </label>
+  <div class="form-actions"><button type="submit">Enregistrer</button><a class="button secondary" href="/expenses">Annuler</a></div>
+</form>
+{{end}}

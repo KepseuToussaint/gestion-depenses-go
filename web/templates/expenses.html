@@ -1,0 +1,18 @@
+{{define "content"}}
+<div class="heading"><div><h1>Mes dépenses</h1><p>Consultez et filtrez vos dépenses.</p></div><a class="button" href="/expenses/new">+ Ajouter</a></div>
+<form class="filters" method="GET" action="/expenses">
+  <label>Catégorie
+    <select name="category"><option value="">Toutes</option>
+    {{range .Categories}}<option value="{{.ID}}" {{if eq $.SelectedCategory .ID}}selected{{end}}>{{.Name}}</option>{{end}}
+    </select>
+  </label>
+  <label>Du <input type="date" name="from" value="{{.From}}"></label>
+  <label>Au <input type="date" name="to" value="{{.To}}"></label>
+  <button type="submit">Filtrer</button><a class="button secondary" href="/expenses">Réinitialiser</a>
+</form>
+{{if .Expenses}}
+<div class="table-wrap"><table><thead><tr><th>Date</th><th>Description</th><th>Catégorie</th><th>Montant</th><th>Actions</th></tr></thead><tbody>
+{{range .Expenses}}<tr><td>{{.Date}}</td><td>{{.Description}}</td><td>{{.Category}}</td><td>{{printf "%.2f" .Amount}}</td><td class="actions"><a href="/expenses/{{.ID}}/edit">Modifier</a><form method="POST" action="/expenses/{{.ID}}/delete" onsubmit="return confirm('Supprimer cette dépense ?')"><button class="link danger" type="submit">Supprimer</button></form></td></tr>{{end}}
+</tbody></table></div>
+{{else}}<div class="empty">Aucune dépense trouvée. Ajoutez votre première dépense !</div>{{end}}
+{{end}}
